@@ -7,6 +7,9 @@ export default createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
+  body {
+    background-color: rgba(135, 206, 235, 0.5);
+  }
   ul,li {
     list-style: none;
   }
