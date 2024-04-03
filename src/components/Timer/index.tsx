@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import TimeSettingModal from './TimeSettingModal';
 
 const Timer = () => {
-  // TODO: 초기 기본 설정 타이머 값 3분, 이후 시간 설정 기능 만든 후 변경 예정
+  // TODO: 시간 사용하는 곳 많아지면 상태관리 필요
   const [time, setTime] = useState<number>(0)
-  const [remainingTime, setRemainingTime] = useState<number>(time);
+  const [accumulateTime, setAccumulateTime] = useState<number>(0);
   const [timerOn, setTimerOn] = useState<boolean>(false)
 
   const [isTimeSettingModal, setIsTimeSettingModal] = useState<boolean>(true);
@@ -20,6 +20,7 @@ const Timer = () => {
     const timer = setInterval(() => {
       if (timerOn && time > 0) {
         setTime(prev => prev - 1);
+        setAccumulateTime(prev => prev + 1);
       } else if (time < 0) {
         // TODO: 10초 미만으로 남을 경우 강조 색상으로 변경
         clearInterval(timer)
@@ -33,6 +34,10 @@ const Timer = () => {
   }, [time, timerOn])
 
   const onChangeTimerOn = () => {
+    if (time === 0) {
+      setIsTimeSettingModal(!isTimeSettingModal);
+      return
+    }
     setTimerOn(!timerOn)
   }
 
@@ -40,9 +45,15 @@ const Timer = () => {
     setIsTimeSettingModal(!isTimeSettingModal)
   }
 
-  // TODO: hour도 만들지, 그냥 minute로 갈지 고민, 사용하는 곳 많으면 함수화 팔요
-  const minute = String(Math.floor(time / 60)).padStart(2, '0');
-  const second = String(Math.floor(time % 60)).padStart(2, '0');
+  const fomattedTime = (time:number) => {
+    // TODO: hour도 만들지, 그냥 minute로 갈지 고민, 사용하는 곳 많으면 함수화 팔요
+    const minute = String(Math.floor(time / 60)).padStart(2, '0');
+    const second = String(Math.floor(time % 60)).padStart(2, '0');
+
+    const fomatted = `${minute} : ${second}`
+
+    return fomatted
+  }
 
   // TODO: 설정 안하고 끈 경우, 재 설정 할 수 있는 버튼 필요
   return (
@@ -54,8 +65,12 @@ const Timer = () => {
         />
       }
       <Content>
+        <span>누적시간</span>
+        <b>{fomattedTime(accumulateTime)}</b>
+      </Content>
+      <Content>
         <span>타이머</span>
-        <b>{minute} : {second}</b>
+        <b>{fomattedTime(time)}</b>
       </Content>
 
       <TimerButton onClick={onChangeTimerOn}>
