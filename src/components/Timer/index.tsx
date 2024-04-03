@@ -1,45 +1,58 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import TimeSettingModal from './TimeSettingModal';
 
 const Timer = () => {
   // TODO: 초기 기본 설정 타이머 값 3분, 이후 시간 설정 기능 만든 후 변경 예정
-  const [time, setTime] = useState<number>(180)
+  const [time, setTime] = useState<number>(0)
   const [remainingTime, setRemainingTime] = useState<number>(time);
   const [timerOn, setTimerOn] = useState<boolean>(false)
 
+  const [isTimeSettingModal, setIsTimeSettingModal] = useState<boolean>(true);
+
   useEffect(() => {
     if (time === 0) {
-      // TODO: 시간 설정하도록 해야함
+    setIsTimeSettingModal(true)
     }
   }, [])
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (timerOn && remainingTime > 0) {
-        setRemainingTime(prev => prev - 1);
-      } else if (remainingTime < 0) {
+      if (timerOn && time > 0) {
+        setTime(prev => prev - 1);
+      } else if (time < 0) {
         // TODO: 10초 미만으로 남을 경우 강조 색상으로 변경
         clearInterval(timer)
-      } else if (remainingTime === 0) {
-        setRemainingTime(time)
+      } else if (time === 0) {
+        setTime(time)
         setTimerOn(false)
       }
     }, 1000);
 
     return () => clearInterval(timer)
-  }, [remainingTime, timerOn])
+  }, [time, timerOn])
 
   const onChangeTimerOn = () => {
     setTimerOn(!timerOn)
   }
 
-  // TODO: 초기 값 변경되서 h도 생기면 포맷 변경 필요
-  const minute = String(Math.floor(remainingTime / 60)).padStart(2, '0');
-  const second = String(Math.floor(remainingTime % 60)).padStart(2, '0');
+  const onChangeIsTimeSettingModal = () => {
+    setIsTimeSettingModal(!isTimeSettingModal)
+  }
 
+  // TODO: hour도 만들지, 그냥 minute로 갈지 고민, 사용하는 곳 많으면 함수화 팔요
+  const minute = String(Math.floor(time / 60)).padStart(2, '0');
+  const second = String(Math.floor(time % 60)).padStart(2, '0');
 
+  // TODO: 설정 안하고 끈 경우, 재 설정 할 수 있는 버튼 필요
   return (
     <Container>
+      {isTimeSettingModal && 
+        <TimeSettingModal 
+          setTime={setTime} 
+          onChangeIsTimeSettingModal={onChangeIsTimeSettingModal}
+        />
+      }
       <Content>
         <span>타이머</span>
         <b>{minute} : {second}</b>
