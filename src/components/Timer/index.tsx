@@ -55,7 +55,7 @@ const Timer = () => {
     return fomatted
   }
 
-  // TODO: 설정 안하고 끈 경우, 재 설정 할 수 있는 버튼 필요
+  // TODO: 시간 재 설정 버튼 필요
   return (
     <Container>
       {isTimeSettingModal && 
@@ -88,7 +88,7 @@ const Container = styled.div`
   justify-content: space-between;
   flex-direction: column;
   padding: 20px;
-  width: 400px;
+  width: 100%;
   height: 400px;
   color: #fff;
   border-radius: 50%;

@@ -1,5 +1,5 @@
 import React from 'react'
-import { CustomDate, Timer } from 'components'
+import { CustomDate, Timer, TodoList } from 'components'
 import styled from 'styled-components'
 
 const Home = () => {
@@ -7,6 +7,7 @@ const Home = () => {
     <Container>
       <CustomDate />
       <Timer />
+      <TodoList />
     </Container>
   )
 }
@@ -18,5 +19,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin: 50px 0;
+  gap: 50px;
+  padding: 50px 20px;
+  width: 430px;
 `
