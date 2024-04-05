@@ -1,42 +1,77 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 interface TodoItem {
   name: string;
-  done: boolean;
-}
-interface TodolistItem {
-  name: string;
-  done: boolean;
+  completed: boolean;
 }
 
+// 기본 작업 마무리 후, 수정&삭제 기능 넣기
 const TodoList = () => {
-  const [todo, setTodo] = useState<TodoItem | null>();
-  const [todos, setTodos] = useState<[TodolistItem] | null>();
+  const [todo, setTodo] = useState<string>('');
+  const [todos, setTodos] = useState<TodoItem[]>([]);
 
+  useEffect(() => {
+    const localstorageData = localStorage.getItem('todos');
+    if (localstorageData !== null) {
+      setTodos(JSON.parse(localstorageData))
+    }
+  }, [])
+
+  useEffect(() => {
+    // todos 새로고침 될 경우 빈 배열 되는거 방지
+    if (todos.length === 0) return;
+
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos])
   const onChangeTodo = (value:string) => {
-    setTodo({name: value, done: false})
+    setTodo(value)
+  }
+
+  const onChangeCompleted = (idx:number) => {
+    let copyTodos = [...todos];
+
+    copyTodos[idx] = {...copyTodos[idx], completed: !todos[idx].completed};
+    setTodos(copyTodos)
   }
 
   const onClickAddButton = () => {
-    //localStorage.setItem("todos", todo);
-    setTodo(null);
+    if (todo === '') return;
+
+    const newTodo: TodoItem = {
+      name: todo,
+      completed: false,
+    };
+
+    setTodos([...todos, newTodo]);
+    setTodo('');
   }
 
   return (
     <Container>
       <ListContainer>
-        <ListContent>
-          <label htmlFor="todo-list">
-            <input type="checkbox" name="todo-list" id="todo-list" />
-          </label>
-          <span>아래내용 기재시 여기에 입력</span>
-        </ListContent>
+          {todos && todos.map((todo, idx) => {
+            return (
+              <ListContent key={idx}>
+                <label htmlFor="todo-list">
+                  <input 
+                    type="checkbox"
+                    name="todo-list"
+                    id="todo-list"
+                    checked={todo.completed}
+                    onChange={() => onChangeCompleted(idx)}
+                  />
+                </label>
+                <span className={todo.completed ? 'completed-todo' : ''}>{todo.name}</span>
+                <button>X</button>
+              </ListContent>
+            )
+          })}
       </ListContainer>
       <AddContainer>
         <input 
           type="text" 
-          value={todo ? todo.name : ''}
+          value={todo}
           onChange={e => onChangeTodo(e.target.value)}
         />
         <button onClick={onClickAddButton}>추가</button>
@@ -57,6 +92,11 @@ const Container = styled.div`
 `
 const ListContainer = styled.ul`
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 150px;
+  overflow-y: scroll;
 `
 const ListContent = styled.li`
   display: flex;
@@ -77,7 +117,10 @@ const ListContent = styled.li`
   span {
     color: #838383;
     font-size: 18px;
-    //text-decoration: line-through;
+
+    &.completed-todo {
+      text-decoration: line-through;
+    }
   }
 `
 const AddContainer = styled.div`
