@@ -8,7 +8,7 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    background-color: rgba(135, 206, 235, 0.5);
+    background-color: #bbe5f6;
   }
   ul,li {
     list-style: none;

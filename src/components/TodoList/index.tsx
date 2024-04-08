@@ -63,7 +63,6 @@ const TodoList = () => {
                   />
                 </label>
                 <span className={todo.completed ? 'completed-todo' : ''}>{todo.name}</span>
-                <button>X</button>
               </ListContent>
             )
           })}

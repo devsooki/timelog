@@ -15,7 +15,6 @@ const CustomDate = () => {
 export default CustomDate
 
 const Container = styled.div`
-  padding-bottom: 50px;
   color: #fff;
   font-size: 20px;
   font-weight: bold;
