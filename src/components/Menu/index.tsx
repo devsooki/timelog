@@ -1,14 +1,35 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-// TODO: Route 설정 완료하면 Todo, 메뉴내로 이동
+const menu = [
+  {
+    menu: 'Timer',
+    href: '/'
+  }, {
+    menu: 'Todo',
+    href: '/todo'
+  }, {
+    menu: 'Log',
+    href: '/log'
+  }
+]
 const Menu = () => {
+  const navigate = useNavigate();
+
+  const onClickMenu = (menu:string) => {
+    navigate(menu)
+  }
+
   return (
-    
     <Container>
-      <Content></Content>
-      <Content></Content>
-      <Content></Content>
+      {
+        menu.map(m => {
+          return (
+            <Content onClick={() => onClickMenu(m.href)}>{m.menu}</Content>
+          )
+        })
+      }
     </Container>
   )
 }
@@ -21,13 +42,15 @@ const Container = styled.div`
   bottom: 0;
 
   display: flex;
-  justify-content: space-around;
+  //flex: 1 1 0;
 `
-const Content = styled.div`
+const Content = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 1;
   padding: 20px 0;
   color: #666;
   font-size: 18px;
+  //background-color: transparent;
 `

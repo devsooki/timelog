@@ -33,10 +33,9 @@ const TimeSettingModal = ({...props}) => {
     const numberValue = checkNumberValue(value)
 
     if (numberValue > 59) {
-      // 23시 넘어가면 무조건 0시로 변경
+      // 60 넘어가면 무조건 0분으로 변경
       setMinute(0)
     } else {
-      // ? 무조건 숫자만 입력받았는데 변경 할 수 없나?
       setMinute(numberValue)
     }
   }
@@ -47,7 +46,6 @@ const TimeSettingModal = ({...props}) => {
       // 23시 넘어가면 무조건 0시로 변경
       setSecond(0)
     } else {
-      // ? 무조건 숫자만 입력받았는데 변경 할 수 없나?
       setSecond(numberValue)
     }
   }

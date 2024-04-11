@@ -1,12 +1,15 @@
 import React from 'react';
 import GlobalStyles from './style/globalStyles';
-import { Home } from './pages';
+import AppRoutes from 'routes';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
     <>
-      <GlobalStyles />
-      <Home />
+    <GlobalStyles />
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
     </>
   );
 }

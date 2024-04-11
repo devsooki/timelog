@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 interface TodoItem {
+  id: number;
   name: string;
   completed: boolean;
 }
@@ -28,17 +29,29 @@ const TodoList = () => {
     setTodo(value)
   }
 
-  const onChangeCompleted = (idx:number) => {
+  const onChangeCompleted = (id:number) => {
     let copyTodos = [...todos];
 
-    copyTodos[idx] = {...copyTodos[idx], completed: !todos[idx].completed};
+    copyTodos = copyTodos.map(todo => 
+      todo.id === id ? {...todo, completed: !todo.completed} : todo
+    )
+  
+    //copyTodos[id] = {...copyTodos[id], completed: !todos[id].completed};
     setTodos(copyTodos)
+  }
+  
+  const onRemoveTodo = (id:number) => {
+    let copyTodos = [...todos];
+
+    copyTodos = copyTodos.filter(f => f.id !== id);
+    setTodos(copyTodos);
   }
 
   const onClickAddButton = () => {
     if (todo === '') return;
 
     const newTodo: TodoItem = {
+      id: todos.length,
       name: todo,
       completed: false,
     };
@@ -59,10 +72,11 @@ const TodoList = () => {
                     name="todo-list"
                     id="todo-list"
                     checked={todo.completed}
-                    onChange={() => onChangeCompleted(idx)}
+                    onChange={() => onChangeCompleted(todo.id)}
                   />
                 </label>
                 <span className={todo.completed ? 'completed-todo' : ''}>{todo.name}</span>
+                <button onClick={() => onRemoveTodo(todo.id)}>X</button>
               </ListContent>
             )
           })}
@@ -99,6 +113,7 @@ const ListContainer = styled.ul`
 `
 const ListContent = styled.li`
   display: flex;
+  align-items: center;
   gap: 10px;
 
   input {
@@ -114,12 +129,21 @@ const ListContent = styled.li`
     }
   }
   span {
+    flex: 1;
     color: #838383;
     font-size: 18px;
+    word-break: break-all;
 
     &.completed-todo {
       text-decoration: line-through;
     }
+  }
+
+  button {
+    padding: 0 10px;
+    color: #ef4444;
+    font-size: 15px;
+    background-color: transparent;
   }
 `
 const AddContainer = styled.div`
