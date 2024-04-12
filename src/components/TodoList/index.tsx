@@ -25,6 +25,7 @@ const TodoList = () => {
 
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos])
+  
   const onChangeTodo = (value:string) => {
     setTodo(value)
   }
@@ -35,8 +36,6 @@ const TodoList = () => {
     copyTodos = copyTodos.map(todo => 
       todo.id === id ? {...todo, completed: !todo.completed} : todo
     )
-  
-    //copyTodos[id] = {...copyTodos[id], completed: !todos[id].completed};
     setTodos(copyTodos)
   }
   

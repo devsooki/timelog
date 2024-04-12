@@ -2,20 +2,76 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import TimeSettingModal from './TimeSettingModal';
 
+interface TimeItem {
+  id: Date;
+  acc: number;
+}
+const today = new Date();
+
 const Timer = () => {
   // TODO: 시간 사용하는 곳 많아지면 상태관리 필요
+
+  // 설정시간
   const [time, setTime] = useState<number>(0);
+  // 설정시간 -> 타이머 on -> 잔여시간
   const [remainingTime, setRemainingTime] = useState<number>(0);
+  // 누적시간
   const [accumulateTime, setAccumulateTime] = useState<number>(0);
   const [timerOn, setTimerOn] = useState<boolean>(false);
 
   const [isTimeSettingModal, setIsTimeSettingModal] = useState<boolean>(true);
 
+  // localStorage에 저장할 누적시간 배열
+  const [times, setTimes] = useState<TimeItem[]>([]);
+
   useEffect(() => {
     if (time === 0) {
-    setIsTimeSettingModal(true)
+      setIsTimeSettingModal(true)
+    }
+
+    const localstorageData = localStorage.getItem('times');
+
+    if (localstorageData !== null) {
+      const parsedData = JSON.parse(localstorageData);
+      parsedData.map((data: TimeItem) => {
+        if (new Date(data.id).toLocaleDateString() === today.toLocaleDateString()) {
+          setAccumulateTime(data.acc)
+        } else {
+          setAccumulateTime(0)
+        }
+      })
     }
   }, [])
+
+  // times state가 변경될때마다 localstorage에 저장
+  useEffect(() => {
+    //  새로고침 될 경우 빈 배열 되는거 방지
+    if (times.length === 0) return;
+
+    localStorage.setItem("times", JSON.stringify(times));
+  }, [times])
+
+  useEffect(() => {
+    if (!timerOn && accumulateTime !== 0) {
+      const newTime: TimeItem = {
+        id: today,
+        acc: accumulateTime
+      };
+      let copyTimes = [...times];
+
+      if (times.length === 0) {
+        // times가 빈 배열일때 새로운 데이터 저장
+        setTimes([newTime])
+      } else {
+        // time에 데이터가 있는 경우 날짜로 비교해서 acc 세팅
+        copyTimes = copyTimes.map(time => 
+          time.id.toLocaleDateString() === today.toLocaleDateString() ? {...time, acc: accumulateTime} : time
+        )
+        setTimes(copyTimes)
+      }
+
+    }
+  }, [timerOn])
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -57,18 +113,20 @@ const Timer = () => {
     return fomatted
   }
 
-  console.log(time, remainingTime)
+  const onChangeTime = (fommatTime: number) => {
+    setTime(fommatTime);
+    setRemainingTime(fommatTime);
+  }
 
   return (
     <BgContainer 
-      time={time} 
-      remainingTime={remainingTime}
+    $time={time} 
+    $remainingtime={remainingTime}
     >
       <Container>
         {isTimeSettingModal && 
           <TimeSettingModal 
-            setTime={setTime}
-            setRemainingTime={setRemainingTime}
+            onChangeTime={onChangeTime}
             onChangeIsTimeSettingModal={onChangeIsTimeSettingModal}
           />
         }
@@ -91,7 +149,7 @@ const Timer = () => {
 
 export default Timer
 
-const BgContainer = styled.div<{ time: number, remainingTime: number }>`
+const BgContainer = styled.div<{ $time: number, $remainingtime: number }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,8 +157,7 @@ const BgContainer = styled.div<{ time: number, remainingTime: number }>`
   width: 100%;
   height: 400px;
   border-radius: 50%;
-  background: ${props => props.time === 0 ? '#c5d2e2' : `conic-gradient(#6798c2 ${((props.time - props.remainingTime) / props.time) * 100}%, #c5d2e2 0%)`};
-  //background: conic-gradient(#6798c2 ${(props) => ((props.time - props.remainingTime) / props.time) * 100}%, #c5d2e2 0%);
+  background: ${props => props.$time === 0 ? '#c5d2e2' : `conic-gradient(#6798c2 ${((props.$time - props.$remainingtime) / props.$time) * 100}%, #c5d2e2 0%)`};
 `
 const Container = styled.div`
   display: flex;

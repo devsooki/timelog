@@ -26,7 +26,12 @@ const Menu = () => {
       {
         menu.map(m => {
           return (
-            <Content onClick={() => onClickMenu(m.href)}>{m.menu}</Content>
+            <Content 
+              key={m.menu}
+              onClick={() => onClickMenu(m.href)}
+            >
+              {m.menu}
+            </Content>
           )
         })
       }

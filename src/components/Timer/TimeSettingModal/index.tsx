@@ -4,8 +4,7 @@ import styled from 'styled-components';
 const TimeSettingModal = ({...props}) => {
 
   const { 
-    setTime,
-    setRemainingTime,
+    onChangeTime,
     onChangeIsTimeSettingModal
   } = props
 
@@ -52,8 +51,7 @@ const TimeSettingModal = ({...props}) => {
 
   const onClickConfirm = () => {
     const fommatTime = hour * 3600 + minute * 60 + second
-    setTime(fommatTime);
-    setRemainingTime(fommatTime);
+    onChangeTime(fommatTime)
     onChangeIsTimeSettingModal(false)
   }
 
