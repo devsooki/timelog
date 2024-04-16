@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import TimeSettingModal from './TimeSettingModal';
 
+// TODO: time id, Date로 할지, formatted한 스트링으로 할지 고민...
 interface TimeItem {
-  id: Date;
+  id: string;
   acc: number;
 }
-const today = new Date();
+const formattedToday = new Date().toLocaleDateString();
 
 const Timer = () => {
   // TODO: 시간 사용하는 곳 많아지면 상태관리 필요
@@ -34,12 +35,13 @@ const Timer = () => {
     if (localstorageData !== null) {
       const parsedData = JSON.parse(localstorageData);
       parsedData.map((data: TimeItem) => {
-        if (new Date(data.id).toLocaleDateString() === today.toLocaleDateString()) {
+        if (data.id === formattedToday) {
           setAccumulateTime(data.acc)
         } else {
           setAccumulateTime(0)
         }
       })
+      setTimes(parsedData);
     }
   }, [])
 
@@ -54,20 +56,23 @@ const Timer = () => {
   useEffect(() => {
     if (!timerOn && accumulateTime !== 0) {
       const newTime: TimeItem = {
-        id: today,
+        id: formattedToday,
         acc: accumulateTime
       };
       let copyTimes = [...times];
 
-      if (times.length === 0) {
+      if (copyTimes.length === 0) {
         // times가 빈 배열일때 새로운 데이터 저장
         setTimes([newTime])
       } else {
-        // time에 데이터가 있는 경우 날짜로 비교해서 acc 세팅
-        copyTimes = copyTimes.map(time => 
-          time.id.toLocaleDateString() === today.toLocaleDateString() ? {...time, acc: accumulateTime} : time
-        )
-        setTimes(copyTimes)
+        let findIndex = copyTimes.findIndex(time => time.id === formattedToday);
+        
+        if (findIndex !== -1) {
+          copyTimes[findIndex].acc = accumulateTime;
+          setTimes(copyTimes);
+        } else {
+          setTimes([...copyTimes, newTime]);
+        }
       }
 
     }
