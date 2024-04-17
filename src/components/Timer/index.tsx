@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import TimeSettingModal from './TimeSettingModal';
+import { TimeSettingModal } from './@components';
 
 // TODO: time id, Date로 할지, formatted한 스트링으로 할지 고민...
 interface TimeItem {
@@ -130,7 +130,7 @@ const Timer = () => {
     >
       <Container>
         {isTimeSettingModal && 
-          <TimeSettingModal 
+          <TimeSettingModal
             onChangeTime={onChangeTime}
             onChangeIsTimeSettingModal={onChangeIsTimeSettingModal}
           />

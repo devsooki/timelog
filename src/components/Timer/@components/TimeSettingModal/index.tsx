@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const TimeSettingModal = ({...props}) => {
-
-  const { 
-    onChangeTime,
-    onChangeIsTimeSettingModal
-  } = props
+interface Props {
+  onChangeTime: (fommatTime: number) => void, 
+  onChangeIsTimeSettingModal: (isTimeSettingModal: boolean) => void,
+}
+const TimeSettingModal = ({
+  onChangeTime, 
+  onChangeIsTimeSettingModal
+}: Props) => {
 
   const [hour, setHour] = useState<number>(0);
   const [minute, setMinute] = useState<number>(0);
