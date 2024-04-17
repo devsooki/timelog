@@ -20,9 +20,6 @@ const TodoList = () => {
   }, [])
 
   useEffect(() => {
-    // todos 새로고침 될 경우 빈 배열 되는거 방지
-    if (todos.length === 0) return;
-
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos])
   
