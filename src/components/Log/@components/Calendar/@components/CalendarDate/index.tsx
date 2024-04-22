@@ -6,12 +6,11 @@ interface Props {
   date: Date
 }
 const CalendarDate = ({ cell, date }: Props) => {
-  console.log(cell)
   if (cell === 0) {
-    return <div className='empty'></div>
+    return <DateContainer className='empty'></DateContainer>
   }
   return (
-    <div className='dd'
+    <DateContainer
         //onClick={onClickCalendarDate}
       >
         <div
@@ -19,8 +18,25 @@ const CalendarDate = ({ cell, date }: Props) => {
         >
           {cell}
         </div>
-      </div>
+      </DateContainer>
   )
 }
 
 export default CalendarDate
+
+const DateContainer = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //flex-direction: column;
+  height: 100%;
+  border-right: 1px solid #ddd;
+
+  &:last-child {
+    border-right: none;
+  }
+  &.empty {
+    background-color: #f2f2f2;
+  }
+`

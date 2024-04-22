@@ -1,5 +1,6 @@
 import React from 'react';
 import CalendarDate from '../CalendarDate';
+import styled from 'styled-components';
 
 interface Props {
   calendarMatrix: number[][],
@@ -8,9 +9,9 @@ interface Props {
 const CalendarDay = ({ calendarMatrix, date }:Props) => {
 
   const createCell = (cell: number, idx: number) => {
-    if (cell === 0) {
-      return <div key={idx} className='empty'></div>
-    }
+    // if (cell === 0) {
+    //   return <CellContainer key={idx} className='empty'></CellContainer>
+    // }
 
     return (
       <CalendarDate
@@ -25,7 +26,7 @@ const CalendarDay = ({ calendarMatrix, date }:Props) => {
 
   const creatRow = (row: number[], idx: number) => {
     const tds = row.map(createCell);
-    return <div key={idx}>{tds}</div>;
+    return <DayContainer key={idx}>{tds}</DayContainer>;
   };
 
   return (
@@ -36,3 +37,10 @@ const CalendarDay = ({ calendarMatrix, date }:Props) => {
 }
 
 export default CalendarDay
+
+const DayContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 50px;
+  border-bottom: 1px solid #ddd;
+`

@@ -1,14 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
-import { DailyLog, WeeklyLog } from './@components'
+import { DailyLog } from './@components'
 
 const Log = () => {
   return (
     <>
-      <ButtonContainer>
+      {/* <ButtonContainer>
         <button>Daily</button>
         <button>Weekly</button>
-      </ButtonContainer>
+      </ButtonContainer> */}
       <Container>
         <DailyLog />
       </Container>
