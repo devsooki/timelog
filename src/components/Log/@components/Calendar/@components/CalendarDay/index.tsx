@@ -4,22 +4,16 @@ import styled from 'styled-components';
 
 interface Props {
   calendarMatrix: number[][],
-  date: Date
+  date: Date,
 }
 const CalendarDay = ({ calendarMatrix, date }:Props) => {
 
   const createCell = (cell: number, idx: number) => {
-    // if (cell === 0) {
-    //   return <CellContainer key={idx} className='empty'></CellContainer>
-    // }
-
     return (
       <CalendarDate
         key={idx}
         cell={cell}
         date={date}
-        // todayDate={todayDate}
-        // isCurrentMonth={isCurrentMonth}
       />
     )
   };

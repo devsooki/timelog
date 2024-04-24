@@ -27,3 +27,23 @@ export const getLastDate = (date: Date) => {
 
   return new Date(year, month + 1, 0);
 }
+
+export const dateFormatted = (date: Date) => {
+  return (
+    String(date.getFullYear()) +
+    '-' +
+    String(date.getMonth() + 1) +
+    '-' +
+    String(date.getDate())
+  );
+};
+
+export const dateCellFormatted = (date: Date, cell: number) => {
+  return (
+    String(date.getFullYear()) +
+    '-' +
+    String(date.getMonth()+1) +
+    '-' +
+    cell
+  );
+};

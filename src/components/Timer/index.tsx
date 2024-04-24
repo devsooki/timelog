@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { TimeSettingModal } from './@components';
+import { dateFormatted } from 'utils/date';
 
 // TODO: time id, Date로 할지, formatted한 스트링으로 할지 고민...
 interface TimeItem {
   id: string;
   acc: number;
 }
-const formattedToday = new Date().toLocaleDateString();
+const formattedToday = dateFormatted(new Date());
 
 const Timer = () => {
   // TODO: 시간 사용하는 곳 많아지면 상태관리 필요

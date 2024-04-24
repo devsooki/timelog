@@ -1,17 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { DailyLog } from './@components'
+import { Calendar } from './@components'
 
 const Log = () => {
   return (
     <>
-      {/* <ButtonContainer>
-        <button>Daily</button>
-        <button>Weekly</button>
-      </ButtonContainer> */}
       <Container>
-        <DailyLog />
+        <Calendar/>
       </Container>
+      {/* TODO: 저장된 데이터 있는 날, 하단에 로그 어떻게 표현할지 고민.. */}
     </>
   )
 }
