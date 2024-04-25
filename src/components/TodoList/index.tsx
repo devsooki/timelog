@@ -127,7 +127,7 @@ const ListContent = styled.li`
   span {
     flex: 1;
     color: #838383;
-    font-size: 18px;
+    font-size: 15px;
     word-break: break-all;
 
     &.completed-todo {
@@ -138,7 +138,7 @@ const ListContent = styled.li`
   button {
     padding: 0 10px;
     color: #ef4444;
-    font-size: 15px;
+    font-size: 13px;
     background-color: transparent;
   }
 `
@@ -150,11 +150,11 @@ const AddContainer = styled.div`
   input {
     flex: 1;
     padding: 5px;
-    font-size: 15px;
+    font-size: 13px;
     border: 0;
   }
   button {
     padding: 5px;
-    font-size: 15px;
+    font-size: 13px;
   }
 `

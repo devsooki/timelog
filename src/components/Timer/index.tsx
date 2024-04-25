@@ -160,8 +160,8 @@ const BgContainer = styled.div<{ $time: number, $remainingtime: number }>`
   align-items: center;
   justify-content: center;
   padding: 25px;
-  width: 100%;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
   background: ${props => props.$time === 0 ? '#c5d2e2' : `conic-gradient(#6798c2 ${((props.$time - props.$remainingtime) / props.$time) * 100}%, #c5d2e2 0%)`};
 `
@@ -183,9 +183,10 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  gap: 5px;
 
   b {
-    font-size: 50px;
+    font-size: 30px;
     letter-spacing: -1px;
   }
 `

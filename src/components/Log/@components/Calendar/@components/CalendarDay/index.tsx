@@ -35,6 +35,7 @@ export default CalendarDay
 const DayContainer = styled.div`
   display: flex;
   align-items: center;
-  height: 50px;
+  height: 40px;
+  font-size: 13px;
   border-bottom: 1px solid #ddd;
 `

@@ -20,7 +20,8 @@ export default Week
 const Container = styled.div`
   display: flex;
   align-items: center;
-  height: 50px;
+  height: 40px;
+  font-size: 13px;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
 `
@@ -28,7 +29,7 @@ const WeekContent = styled.div`
   flex: 1;
   height: 100%;
   text-align: center;
-  line-height: 50px;
+  line-height: 40px;
   border-right: 1px solid #ddd;
 
   &:nth-child(1) {

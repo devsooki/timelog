@@ -54,8 +54,9 @@ const Content = styled.button`
   align-items: center;
   justify-content: center;
   flex: 1;
-  padding: 20px 0;
+  padding: 15px 0;
   color: #666;
-  font-size: 18px;
+  font-size: 15px;
+  font-weight: 600;
   //background-color: transparent;
 `

@@ -40,18 +40,18 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: 50px;
+  padding: 10px 0;
   color: #333;
 
   b {
     margin: 0 10px;
     width: 120px;
-    font-size: 20px;
+    font-size: 15px;
     text-align: center;
   }
   button {
-    width: 20px;
-    height: 20px;
+    width: 10px;
+    height: 10px;
     background-color: transparent;
   }
 `
