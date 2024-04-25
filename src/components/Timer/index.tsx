@@ -195,23 +195,24 @@ const TimerButton = styled.button`
   align-items: center;
   justify-content: center;
   margin-top: 20px;
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   border: 1px solid #ff4040;
   background-color: #fff;
 
   .on {
-    width: 15px;
-    height: 15px;
+    width: 13px;
+    height: 13px;
     background-color: #ff4040;
   }
   .off {
+    margin-left: 5px;
     width: 0;
     height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-left: 15px solid #ff4040;  
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-left: 12px solid #ff4040;  
   }
 
 `
