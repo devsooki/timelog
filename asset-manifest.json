@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/timelog/static/js/main.56acc680.js",
+    "index.html": "/timelog/index.html",
+    "main.56acc680.js.map": "/timelog/static/js/main.56acc680.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.56acc680.js"
+  ]
+}
