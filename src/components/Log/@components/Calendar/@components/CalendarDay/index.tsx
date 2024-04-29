@@ -5,8 +5,9 @@ import styled from 'styled-components';
 interface Props {
   calendarMatrix: number[][],
   date: Date,
+  setTimelog: (time: number) => void;
 }
-const CalendarDay = ({ calendarMatrix, date }:Props) => {
+const CalendarDay = ({ calendarMatrix, date, setTimelog }:Props) => {
 
   const createCell = (cell: number, idx: number) => {
     return (
@@ -14,6 +15,7 @@ const CalendarDay = ({ calendarMatrix, date }:Props) => {
         key={idx}
         cell={cell}
         date={date}
+        setTimelog={setTimelog}
       />
     )
   };

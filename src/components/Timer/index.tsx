@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { TimeSettingModal } from './@components';
 import { dateFormatted } from 'utils/date';
+import { fomattedTime } from 'utils/time';
 
 // TODO: time id, Date로 할지, formatted한 스트링으로 할지 고민...
 interface TimeItem {
@@ -107,16 +108,6 @@ const Timer = () => {
 
   const onChangeIsTimeSettingModal = () => {
     setIsTimeSettingModal(!isTimeSettingModal)
-  }
-
-  const fomattedTime = (time:number) => {
-    // TODO: hour도 만들지, 그냥 minute로 갈지 고민, 사용하는 곳 많으면 함수화 팔요
-    const minute = String(Math.floor(time / 60)).padStart(2, '0');
-    const second = String(Math.floor(time % 60)).padStart(2, '0');
-
-    const fomatted = `${minute} : ${second}`
-
-    return fomatted
   }
 
   const onChangeTime = (fommatTime: number) => {

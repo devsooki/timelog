@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import { MonthSelector, CalendarWeek, CalendarDay } from './@components';
 import { getFirstDate, getLastDate } from 'utils/date';
 
-const Calendar = () => {
+interface Props {
+  setTimelog: (time: number) => void;
+}
+const Calendar = ({ setTimelog }: Props) => {
   const [date, setDate] = useState(new Date());
   const firstDay = getFirstDate(date).getDay();
   const lastDate = getLastDate(date).getDate();
@@ -37,6 +40,7 @@ const Calendar = () => {
       <CalendarDay 
         calendarMatrix={calendarMatrix}
         date={date}
+        setTimelog={setTimelog}
       />
     </Container>
   )
