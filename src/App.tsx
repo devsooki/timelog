@@ -7,7 +7,7 @@ function App() {
   return (
     <>
     <GlobalStyles />
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <AppRoutes />
       </BrowserRouter>
     </>
