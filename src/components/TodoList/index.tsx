@@ -7,7 +7,7 @@ interface TodoItem {
   completed: boolean;
 }
 
-// 기본 작업 마무리 후, 수정&삭제 기능 넣기
+// 기본 작업 마무리 후, 수정 기능 넣기
 const TodoList = () => {
   const [todo, setTodo] = useState<string>('');
   const [todos, setTodos] = useState<TodoItem[]>([]);
@@ -20,6 +20,8 @@ const TodoList = () => {
   }, [])
 
   useEffect(() => {
+    if (todos.length === 0) return;
+    
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos])
   
